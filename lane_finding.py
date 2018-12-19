@@ -88,19 +88,23 @@ def draw_lines(img, lines, color=[255, 0, 0], thickness=2):
                 y1AvgL = y1AvgL + (y1 - y1AvgL)/nL
                 y2AvgL = y2AvgL + (y2 - y2AvgL)/nL
                 nL += 1
-            else:
+            elif (x2-x1)/(y2-y1) < 0 :
                 x1AvgR = x1AvgR + (x1 - x1AvgR)/nR
                 x2AvgR = x2AvgR + (x2 - x2AvgR)/nR
                 y1AvgR = y1AvgR + (y1 - y1AvgR)/nR
                 y2AvgR = y2AvgR + (y2 - y2AvgR)/nR
                 nR += 1
-
-    #print(x1AvgL, x2AvgL, y1AvgL, y2AvgL)
-
-    #print(x1AvgR, x2AvgR, y1AvgR, y2AvgR)
-
-    [slopeL, interceptL] = np.polyfit([x1AvgL, x2AvgL], [y1AvgL, y2AvgL], 1)
-    [slopeR, interceptR] = np.polyfit([x1AvgR, x2AvgR], [y1AvgR, y2AvgR], 1)
+                
+        
+                
+    
+    
+    if (x1AvgL==0 and x2AvgL==0 and y1AvgL==0 and y2AvgL==0) or (x1AvgR==0 and x2AvgR==0 and y1AvgR==0 and y2AvgR):
+        print(x1AvgL, x2AvgL, y1AvgL, y2AvgL)
+        print(x1AvgR, x2AvgR, y1AvgR, y2AvgR)
+    else:
+        [slopeL, interceptL] = np.polyfit([x1AvgL, x2AvgL], [y1AvgL, y2AvgL], 1)
+        [slopeR, interceptR] = np.polyfit([x1AvgR, x2AvgR], [y1AvgR, y2AvgR], 1)
 
     #print(interceptL, slopeL)
     #print(interceptR, slopeR)
@@ -181,8 +185,9 @@ def lane_finding_pipeline(img):
 
     # This time we are defining a four sided polygon to mask
     imshape = img.shape
-    print (imshape)
-    vertices = np.array([[(180,imshape[0]-50),(480, 320), (530,320), (825,imshape[0]-50)]], dtype=np.int32)
+    #print (imshape)
+    #vertices = np.array([[(180,imshape[0]-50),(480, 320), (530,320), (825,imshape[0]-50)]], dtype=np.int32)
+    vertices = np.array([[(100,imshape[0]),(450, 320), (520,320), (925,imshape[0])]], dtype=np.int32)
     masked_edges = region_of_interest(edges, vertices)
     
     polygin = cv2.polylines(img, [vertices], True, (0,255,255),4)
