@@ -94,11 +94,7 @@ def draw_lines(img, lines, color=[255, 0, 0], thickness=2):
                 y1AvgR = y1AvgR + (y1 - y1AvgR)/nR
                 y2AvgR = y2AvgR + (y2 - y2AvgR)/nR
                 nR += 1
-                
-        
-                
-    
-    
+  
     if (x1AvgL==0 and x2AvgL==0 and y1AvgL==0 and y2AvgL==0) or (x1AvgR==0 and x2AvgR==0 and y1AvgR==0 and y2AvgR):
         print(x1AvgL, x2AvgL, y1AvgL, y2AvgL)
         print(x1AvgR, x2AvgR, y1AvgR, y2AvgR)
@@ -124,9 +120,8 @@ def draw_lines(img, lines, color=[255, 0, 0], thickness=2):
     cv2.line(img, (startXL, startYL), (endXL, endYL), color, thickness, lineType=4, shift=0)
     cv2.line(img, (startXR, startYR), (endXR, endYR), color, thickness, lineType=4, shift=0)
     return img
-    #for line in lines:
-       # for x1,y1,x2,y2 in line:
-            #cv2.line(img, (x1, y1), (x2, y2), color, thickness)
+
+
 
 def hough_lines(img, rho, theta, threshold, min_line_len, max_line_gap):
     """
@@ -155,7 +150,7 @@ def weighted_img(img, initial_img, α=0.8, β=1., γ=0.):
     """
     return cv2.addWeighted(initial_img, α, img, β, γ)
 
-def lane_finding_pipeline(img):
+def lane_finding_pipeline(img, vertices):
     
     # Read in the image
     #img = mpimg.imread(img)
@@ -187,7 +182,7 @@ def lane_finding_pipeline(img):
     imshape = img.shape
     #print (imshape)
     #vertices = np.array([[(180,imshape[0]-50),(480, 320), (530,320), (825,imshape[0]-50)]], dtype=np.int32)
-    vertices = np.array([[(100,imshape[0]),(450, 320), (520,320), (925,imshape[0])]], dtype=np.int32)
+    #vertices = np.array([[(100,imshape[0]),(450, 320), (520,320), (925,imshape[0])]], dtype=np.int32)
     masked_edges = region_of_interest(edges, vertices)
     
     polygin = cv2.polylines(img, [vertices], True, (0,255,255),4)
@@ -210,5 +205,5 @@ def lane_finding_pipeline(img):
                                 min_line_length, max_line_gap)
     
     img_out = draw_lines(img, lines, color=[255, 69, 0], thickness=8)
-    # Uncomment the following code if you are running the code locally and wish to save the image
+    
     return img_out
