@@ -66,6 +66,9 @@ def draw_lines(img, lines, color=[255, 0, 0], thickness=2):
     If you want to make the lines semi-transparent, think about combining
     this function with the weighted_img() function below
     """
+    
+    blank_image = np.copy(img)*0 # creating a blank to draw lines on
+
 
     x1AvgL = 0
     x2AvgL = 0
@@ -75,58 +78,70 @@ def draw_lines(img, lines, color=[255, 0, 0], thickness=2):
     x2AvgR = 0
     y1AvgR = 0
     y2AvgR = 0
+    
+
+    startYL = np.float32(320.0)
+    endYL = np.float32(540.0)
+    startXL = np.float32(485.0)
+    endXL = np.float32(857.0)
+
+    startYR = np.float32(320.0)
+    endYR = np.float32(540.0)
+    startXR = np.float32(472.0)
+    endXR = np.float32(162.0)
+
     nL = 1
     nR = 1
     gh = 0
     for line in lines:
-
-         for x1,y1,x2,y2 in line:
-            gh +=1
-            if (x2-x1)/(y2-y1) > 0 :
-                x1AvgL = x1AvgL + (x1 - x1AvgL)/nL
-                x2AvgL = x2AvgL + (x2 - x2AvgL)/nL
-                y1AvgL = y1AvgL + (y1 - y1AvgL)/nL
-                y2AvgL = y2AvgL + (y2 - y2AvgL)/nL
-                nL += 1
-            elif (x2-x1)/(y2-y1) < 0 :
-                x1AvgR = x1AvgR + (x1 - x1AvgR)/nR
-                x2AvgR = x2AvgR + (x2 - x2AvgR)/nR
-                y1AvgR = y1AvgR + (y1 - y1AvgR)/nR
-                y2AvgR = y2AvgR + (y2 - y2AvgR)/nR
-                nR += 1
-                
-        
-                
-    
-    
-    if (x1AvgL==0 and x2AvgL==0 and y1AvgL==0 and y2AvgL==0) or (x1AvgR==0 and x2AvgR==0 and y1AvgR==0 and y2AvgR):
+        #print(line)
+        for x1,y1,x2,y2 in line:
+            if (y1!=y2):
+                if ((x2-x1)/(y2-y1)) > 1 and ((x2-x1)/(y2-y1)) < 3 :
+                    x1AvgL = x1AvgL + (x1 - x1AvgL)/nL
+                    x2AvgL = x2AvgL + (x2 - x2AvgL)/nL
+                    y1AvgL = y1AvgL + (y1 - y1AvgL)/nL
+                    y2AvgL = y2AvgL + (y2 - y2AvgL)/nL
+                    #print(x1AvgL, x2AvgL, y1AvgL, y2AvgL)
+                    #print((x2-x1)/(y2-y1))
+                    nL += 1
+                elif ((x2-x1)/(y2-y1)) < -1 and ((x2-x1)/(y2-y1)) > -3  :
+                    x1AvgR = x1AvgR + (x1 - x1AvgR)/nR
+                    x2AvgR = x2AvgR + (x2 - x2AvgR)/nR
+                    y1AvgR = y1AvgR + (y1 - y1AvgR)/nR
+                    y2AvgR = y2AvgR + (y2 - y2AvgR)/nR
+                    #print((x2-x1)/(y2-y1))
+                    nR += 1
+  
+    if (y1AvgL== y2AvgL) or (y1AvgR==y2AvgR):
         print(x1AvgL, x2AvgL, y1AvgL, y2AvgL)
         print(x1AvgR, x2AvgR, y1AvgR, y2AvgR)
     else:
         [slopeL, interceptL] = np.polyfit([x1AvgL, x2AvgL], [y1AvgL, y2AvgL], 1)
         [slopeR, interceptR] = np.polyfit([x1AvgR, x2AvgR], [y1AvgR, y2AvgR], 1)
 
-    #print(interceptL, slopeL)
-    #print(interceptR, slopeR)
+        #print(interceptL, slopeL)
+        #print(interceptR, slopeR)
 
-    startYL = 320
-    endYL = 540
-    startXL = int((startYL - interceptL) / slopeL)
-    endXL = int((endYL - interceptL) / slopeL)
+        startYL = np.float32(320.0)
+        endYL = np.float32(540.0)
+        startXL = np.float32((startYL - interceptL) / slopeL)
+        endXL = np.float32((endYL - interceptL) / slopeL)
 
-    startYR = 320
-    endYR = 540
-    startXR = int((startYR - interceptR) / slopeR)
-    endXR = int((endYR - interceptR) / slopeR)
+        startYR = np.float32(320.0)
+        endYR = np.float32(540.0)
+        startXR = np.float32((startYR - interceptR) / slopeR)
+        endXR = np.float32((endYR - interceptR) / slopeR)
 
-    #print(startXL, endXL, startXR, endXR)
-    ####################################################################3
-    cv2.line(img, (startXL, startYL), (endXL, endYL), color, thickness, lineType=4, shift=0)
-    cv2.line(img, (startXR, startYR), (endXR, endYR), color, thickness, lineType=4, shift=0)
-    return img
-    #for line in lines:
-       # for x1,y1,x2,y2 in line:
-            #cv2.line(img, (x1, y1), (x2, y2), color, thickness)
+        #print(startXL, endXL, startXR, endXR)
+        ####################################################################3
+    cv2.line(blank_image, (startXL, startYL), (endXL, endYL), color, thickness, lineType=4, shift=0)
+    cv2.line(blank_image, (startXR, startYR), (endXR, endYR), color, thickness, lineType=4, shift=0)
+    
+    
+    return blank_image
+
+
 
 def hough_lines(img, rho, theta, threshold, min_line_len, max_line_gap):
     """
@@ -155,7 +170,7 @@ def weighted_img(img, initial_img, α=0.8, β=1., γ=0.):
     """
     return cv2.addWeighted(initial_img, α, img, β, γ)
 
-def lane_finding_pipeline(img):
+def lane_finding_pipeline(img, vertices):
     
     # Read in the image
     #img = mpimg.imread(img)
@@ -165,11 +180,11 @@ def lane_finding_pipeline(img):
     gray = grayscale(img)
     
     # Define a kernel size and apply Gaussian smoothing
-    kernel_size = 5
+    kernel_size = 3
     blur_gray = gaussian_blur(gray, kernel_size)
 
     # Define our parameters for Canny and apply
-    low_threshold = 50
+    low_threshold = 40
     high_threshold = 150
     edges = canny(blur_gray, low_threshold, high_threshold)
     
@@ -187,7 +202,7 @@ def lane_finding_pipeline(img):
     imshape = img.shape
     #print (imshape)
     #vertices = np.array([[(180,imshape[0]-50),(480, 320), (530,320), (825,imshape[0]-50)]], dtype=np.int32)
-    vertices = np.array([[(100,imshape[0]),(450, 320), (520,320), (925,imshape[0])]], dtype=np.int32)
+    #vertices = np.array([[(100,imshape[0]),(450, 320), (520,320), (925,imshape[0])]], dtype=np.int32)
     masked_edges = region_of_interest(edges, vertices)
     
     polygin = cv2.polylines(img, [vertices], True, (0,255,255),4)
@@ -203,12 +218,12 @@ def lane_finding_pipeline(img):
     rho = 1 # distance resolution in pixels of the Hough grid
     theta = np.pi/180 # angular resolution in radians of the Hough grid
     threshold = 30    # minimum number of votes (intersections in Hough grid cell)
-    min_line_length = 1 #minimum number of pixels making up a line
-    max_line_gap = 20   # maximum gap in pixels between connectable line segments
+    min_line_length = 10 #minimum number of pixels making up a line
+    max_line_gap = 10   # maximum gap in pixels between connectable line segments
     line_image = np.copy(img)*0 # creating a blank to draw lines on
-    lines = cv2.HoughLinesP(masked_edges, rho, theta, threshold, np.array([]),
+    Hough_lines = cv2.HoughLinesP(masked_edges, rho, theta, threshold, np.array([]),
                                 min_line_length, max_line_gap)
+    stright_lines = draw_lines(img, Hough_lines, color=[255, 69, 0], thickness=8)
+    transparent = weighted_img(img, stright_lines, α=0.8, β=1., γ=0.)
     
-    img_out = draw_lines(img, lines, color=[255, 69, 0], thickness=8)
-    # Uncomment the following code if you are running the code locally and wish to save the image
-    return img_out
+    return transparent
