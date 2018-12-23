@@ -94,7 +94,6 @@ def draw_lines(img, lines, color=[255, 0, 0], thickness=2):
     nR = 1
     gh = 0
     for line in lines:
-<<<<<<< HEAD
         #print(line)
         for x1,y1,x2,y2 in line:
             if (y1!=y2):
@@ -115,8 +114,6 @@ def draw_lines(img, lines, color=[255, 0, 0], thickness=2):
                     nR += 1
   
     if (y1AvgL== y2AvgL) or (y1AvgR==y2AvgR):
-=======
-
          for x1,y1,x2,y2 in line:
             gh +=1
             if (x2-x1)/(y2-y1) > 0 :
@@ -133,7 +130,6 @@ def draw_lines(img, lines, color=[255, 0, 0], thickness=2):
                 nR += 1
   
     if (x1AvgL==0 and x2AvgL==0 and y1AvgL==0 and y2AvgL==0) or (x1AvgR==0 and x2AvgR==0 and y1AvgR==0 and y2AvgR):
->>>>>>> 6ddd6b3f34b6808ca5dbac8393ee391af2a562c9
         print(x1AvgL, x2AvgL, y1AvgL, y2AvgL)
         print(x1AvgR, x2AvgR, y1AvgR, y2AvgR)
     else:
@@ -162,8 +158,6 @@ def draw_lines(img, lines, color=[255, 0, 0], thickness=2):
     return blank_image
 
 
-<<<<<<< HEAD
-=======
     #print(startXL, endXL, startXR, endXR)
     ####################################################################3
     cv2.line(img, (startXL, startYL), (endXL, endYL), color, thickness, lineType=4, shift=0)
@@ -171,7 +165,6 @@ def draw_lines(img, lines, color=[255, 0, 0], thickness=2):
     return img
 
 
->>>>>>> 6ddd6b3f34b6808ca5dbac8393ee391af2a562c9
 
 def hough_lines(img, rho, theta, threshold, min_line_len, max_line_gap):
     """
@@ -256,10 +249,8 @@ def lane_finding_pipeline(img, vertices):
     stright_lines = draw_lines(img, Hough_lines, color=[255, 69, 0], thickness=8)
     transparent = weighted_img(img, stright_lines, α=0.8, β=1., γ=0.)
     
-<<<<<<< HEAD
     return transparent
-=======
+
     img_out = draw_lines(img, lines, color=[255, 69, 0], thickness=8)
     
     return img_out
->>>>>>> 6ddd6b3f34b6808ca5dbac8393ee391af2a562c9
