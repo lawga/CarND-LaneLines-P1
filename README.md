@@ -16,6 +16,10 @@
 
 ---
 
+**Final - Fixed all.ipynb is the final version for the project.**
+
+---
+
 **Finding Lane Lines on the Road**
 
 The goals / steps of this project are the following:
