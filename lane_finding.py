@@ -97,7 +97,8 @@ def draw_lines(img, lines, color=[255, 0, 0], thickness=2):
         #print(line)
         for x1,y1,x2,y2 in line:
             if (y1!=y2):
-                if ((x2-x1)/(y2-y1)) > 1 and ((x2-x1)/(y2-y1)) < 3 :
+                if ((x2-x1)/(y2-y1)) > 1 and ((x2-x1)/(y2-y1)) < 3 : 
+                    #these slope limits represent lines that close to the slope of the lanes detected in the image
                     x1AvgL = x1AvgL + (x1 - x1AvgL)/nL
                     x2AvgL = x2AvgL + (x2 - x2AvgL)/nL
                     y1AvgL = y1AvgL + (y1 - y1AvgL)/nL
@@ -105,7 +106,8 @@ def draw_lines(img, lines, color=[255, 0, 0], thickness=2):
                     #print(x1AvgL, x2AvgL, y1AvgL, y2AvgL)
                     #print((x2-x1)/(y2-y1))
                     nL += 1
-                elif ((x2-x1)/(y2-y1)) < -1 and ((x2-x1)/(y2-y1)) > -3  :
+                elif ((x2-x1)/(y2-y1)) < -1 and ((x2-x1)/(y2-y1)) > -3  : 
+                    #these slope limits represent lines that close to the slope of the lanes detected in the image
                     x1AvgR = x1AvgR + (x1 - x1AvgR)/nR
                     x2AvgR = x2AvgR + (x2 - x2AvgR)/nR
                     y1AvgR = y1AvgR + (y1 - y1AvgR)/nR
@@ -144,9 +146,9 @@ def draw_lines(img, lines, color=[255, 0, 0], thickness=2):
 
     #print(startXL, endXL, startXR, endXR)
     ####################################################################3
-    cv2.line(img, (startXL, startYL), (endXL, endYL), color, thickness, lineType=4, shift=0)
-    cv2.line(img, (startXR, startYR), (endXR, endYR), color, thickness, lineType=4, shift=0)
-    return img
+    #cv2.line(img, (startXL, startYL), (endXL, endYL), color, thickness, lineType=4, shift=0)
+    #cv2.line(img, (startXR, startYR), (endXR, endYR), color, thickness, lineType=4, shift=0)
+    #return img
 
 
 
@@ -212,7 +214,7 @@ def lane_finding_pipeline(img, vertices):
     #vertices = np.array([[(100,imshape[0]),(450, 320), (520,320), (925,imshape[0])]], dtype=np.int32)
     masked_edges = region_of_interest(edges, vertices)
     
-    polygin = cv2.polylines(img, [vertices], True, (0,255,255),4)
+    #polygin = cv2.polylines(img, [vertices], True, (0,255,255),4)
     
     #plt.imshow(polygin)
     
