@@ -8,15 +8,11 @@
 [image6]: ./report_images_output/lines_edges_array.jpg "Filtered Lines"
 [image7]: ./report_images_output/output.jpg "Output"
 
-[image8]: ./test_images_output/challenge_Moment.jpg "Output Challange"
+[image8]: ./challange_images_output/challenge_Moment.jpg "Output Challange"
 
 
 
 # **Finding Lane Lines on the Road** 
-
-## Writeup Template
-
-### You can use this file as a template for your writeup if you want to submit it as a markdown file. But feel free to use some other method and submit a pdf if you prefer.
 
 ---
 
