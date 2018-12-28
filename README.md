@@ -8,15 +8,11 @@
 [image6]: ./report_images_output/lines_edges_array.jpg "Filtered Lines"
 [image7]: ./report_images_output/output.jpg "Output"
 
-[image8]: ./test_images_output/challenge_Moment.jpg "Output Challange"
+[image8]: ./challenge_images_output/challenge_Moment.jpg "Output Challange"
 
 
 
 # **Finding Lane Lines on the Road** 
-
-## Writeup Template
-
-### You can use this file as a template for your writeup if you want to submit it as a markdown file. But feel free to use some other method and submit a pdf if you prefer.
 
 ---
 
@@ -74,10 +70,10 @@ A possible improvement would be that have a better parameters for the hough line
 
 Another potential improvement could be that the line fitting method used is the not the most efficent way. but its the one I  understood. Maybe if I spent more time on that area I would've come with a better solution.
 
-### 4. Challange
+### 4. Challenge
 
-I think I did a decent work with tuning my pipline to be able to detect lanes in the challange vedio. another trick was resizing the vedio stream to a smaller size. and also the polygon edges also needed to be changed to focus on the area of interest in the vedio, and not forgetting retunning the hough lines detector:
+I think I did a decent work with tuning my pipline to be able to detect lanes in the challenge vedio. another trick was resizing the vedio stream to a smaller size. and also the polygon edges also needed to be changed to focus on the area of interest in the vedio, and not forgetting retunning the hough lines detector:
 
-![Challange][image8]
+![Challenge][image8]
 
 
