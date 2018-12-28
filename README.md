@@ -16,7 +16,7 @@
 
 ---
 
-**Final - Fixed all.ipynb is the final version for the project.**
+**"Final - Fixed all.ipynb" is the final version for the project.**
 
 ---
 
