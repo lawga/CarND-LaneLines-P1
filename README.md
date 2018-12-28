@@ -54,6 +54,9 @@ I projected the detected lines on the orginal image to get a better understandin
 
 In order to draw a single line on the left and right lanes, I modified the draw_lines() function by calculating the slopes of the lines and filter the ones that satisfy the slope that represent a left/right lanes then group th e lines with negative valuse and avrage them and do the same for the lines with positive values.
 
+*This blog helped me with avraging the lines:
+http://ottonello.gitlab.io/selfdriving/nanodegree/python/line%20detection/2016/12/18/extrapolating_lines.html
+
 After finding the avrage slope, I draw two big lines that represent the detected lanes on the original image.
 
 ![Output][image7]
